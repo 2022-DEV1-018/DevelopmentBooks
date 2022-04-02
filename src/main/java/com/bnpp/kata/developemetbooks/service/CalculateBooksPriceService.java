@@ -59,12 +59,16 @@ public class CalculateBooksPriceService {
 		for (Integer bookId : bookList) {
 			boolean bookAddedToExistingSet = addBookToExistingSet(bookListSets, bookId);
 			if (!bookAddedToExistingSet) {
-				List<Integer> newSet = new ArrayList<>();
-				newSet.add(bookId);
-				bookListSets.add(newSet);
+				addBookToNewSet(bookListSets, bookId);
 			}
 		}
 		return bookListSets;
+	}
+
+	private void addBookToNewSet(List<List<Integer>> bookListSets, Integer bookId) {
+		List<Integer> newSet = new ArrayList<>();
+		newSet.add(bookId);
+		bookListSets.add(newSet);
 	}
 
 	private boolean addBookToExistingSet(List<List<Integer>> bookListSets, Integer bookId) {
