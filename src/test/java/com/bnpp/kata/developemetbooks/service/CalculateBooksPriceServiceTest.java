@@ -3,6 +3,7 @@ package com.bnpp.kata.developemetbooks.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -11,6 +12,8 @@ import com.bnpp.kata.developemetbooks.model.BookApiRequest;
 public class CalculateBooksPriceServiceTest {
 
 	private BookApiRequest bookApiRequest;
+	private CalculateBooksPriceService calculateBooksPriceService;
+	private List<BookApiRequest> bookApiRequestList;
 
 	private void setShoppingCart(int bookId, int quantity) {
 		bookApiRequest = new BookApiRequest();
@@ -18,10 +21,14 @@ public class CalculateBooksPriceServiceTest {
 		bookApiRequest.setQuantity(quantity);
 	}
 
+	@Before
+	public void init() {
+		calculateBooksPriceService = new CalculateBooksPriceService();
+		bookApiRequestList = new ArrayList<>();
+	}
+
 	@Test
 	public void calculatePriceShouldReturnFiftyWhenUserBuysOneBook() {
-		CalculateBooksPriceService calculateBooksPriceService = new CalculateBooksPriceService();
-		List<BookApiRequest> bookApiRequestList = new ArrayList<>();
 		setShoppingCart(1, 1);
 		bookApiRequestList.add(bookApiRequest);
 
@@ -29,9 +36,7 @@ public class CalculateBooksPriceServiceTest {
 	}
 
 	@Test
-	public void calculatePriceShouldReturn100WhenUserBuysTwoBook() {
-		CalculateBooksPriceService calculateBooksPriceService = new CalculateBooksPriceService();
-		List<BookApiRequest> bookApiRequestList = new ArrayList<>();
+	public void calculatePriceShouldReturnHundredWhenUserBuysTwoBook() {
 		setShoppingCart(1, 2);
 		bookApiRequestList.add(bookApiRequest);
 
@@ -40,50 +45,42 @@ public class CalculateBooksPriceServiceTest {
 
 	@Test
 	public void calculatePriceShouldApplyFivePercentDiscountWhenUserBuyTwoDifferentBooks() {
-		CalculateBooksPriceService calculateBooksPriceService = new CalculateBooksPriceService();
-		List<BookApiRequest> bookApiRequestItem = new ArrayList<>();
 		setShoppingCart(1, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(2, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(95d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestItem));
+		Assertions.assertEquals(95d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
 	}
 
 	@Test
 	public void calculatePriceShouldApplyTenPercentDiscountWhenUserBuyThreeDifferentBooks() {
-		CalculateBooksPriceService calculateBooksPriceService = new CalculateBooksPriceService();
-		List<BookApiRequest> bookApiRequestItem = new ArrayList<>();
 		setShoppingCart(1, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(2, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(3, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(135d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestItem));
+		Assertions.assertEquals(135d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
 	}
 
 	@Test
 	public void calculatePriceShouldApplyTwentyPercentDiscountWhenUserBuyFourDifferentBooks() {
-		CalculateBooksPriceService calculateBooksPriceService = new CalculateBooksPriceService();
-		List<BookApiRequest> bookApiRequestItem = new ArrayList<>();
 		setShoppingCart(1, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(2, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(3, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(4, 1);
-		bookApiRequestItem.add(bookApiRequest);
+		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(160d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestItem));
+		Assertions.assertEquals(160d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
 	}
 
 	@Test
 	public void calculatePriceShouldApplyTwentyFivePercentDiscountWhenUserBuyFiveDifferentBooks() {
-		CalculateBooksPriceService calculateBooksPriceService = new CalculateBooksPriceService();
-		List<BookApiRequest> bookApiRequestList = new ArrayList<>();
 		setShoppingCart(1, 1);
 		bookApiRequestList.add(bookApiRequest);
 		setShoppingCart(2, 1);
@@ -97,5 +94,4 @@ public class CalculateBooksPriceServiceTest {
 
 		Assertions.assertEquals(187.5d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
 	}
-
 }
