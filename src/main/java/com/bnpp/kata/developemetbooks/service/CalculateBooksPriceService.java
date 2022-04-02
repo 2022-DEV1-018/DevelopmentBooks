@@ -1,5 +1,6 @@
 package com.bnpp.kata.developemetbooks.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.bnpp.kata.developemetbooks.model.BookApiRequest;
@@ -33,5 +34,20 @@ public class CalculateBooksPriceService {
 			calculatedPrice += discountedPriceForSet;
 		}
 		return calculatedPrice;
+	}
+
+	protected List<Integer> getBookIdList(List<BookApiRequest> bookRequestList) {
+		List<Integer> bookIdList = new ArrayList<>();
+		for (BookApiRequest bookApiRequest : bookRequestList) {
+			addBookId(bookIdList, bookApiRequest);
+		}
+		return bookIdList;
+	}
+
+	protected List<Integer> addBookId(List<Integer> bookIdList, BookApiRequest bookApiRequest) {
+		for (int i = 0; i < bookApiRequest.getQuantity(); i++) {
+			bookIdList.add(bookApiRequest.getBookId());
+		}
+		return bookIdList;
 	}
 }
