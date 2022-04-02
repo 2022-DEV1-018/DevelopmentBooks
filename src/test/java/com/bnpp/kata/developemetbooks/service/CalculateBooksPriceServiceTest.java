@@ -34,7 +34,8 @@ public class CalculateBooksPriceServiceTest {
 		setShoppingCart(1, 1);
 		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(50d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
+		Assertions.assertEquals(50d,
+				calculateBooksPriceService.calculateBooksPrice(bookApiRequestList).getDiscountedPrice());
 	}
 
 	@Test
@@ -42,7 +43,8 @@ public class CalculateBooksPriceServiceTest {
 		setShoppingCart(1, 2);
 		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(100d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
+		Assertions.assertEquals(100d,
+				calculateBooksPriceService.calculateBooksPrice(bookApiRequestList).getDiscountedPrice());
 	}
 
 	@Test
@@ -52,7 +54,8 @@ public class CalculateBooksPriceServiceTest {
 		setShoppingCart(2, 1);
 		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(95d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
+		Assertions.assertEquals(95d,
+				calculateBooksPriceService.calculateBooksPrice(bookApiRequestList).getDiscountedPrice());
 	}
 
 	@Test
@@ -64,7 +67,8 @@ public class CalculateBooksPriceServiceTest {
 		setShoppingCart(3, 1);
 		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(135d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
+		Assertions.assertEquals(135d,
+				calculateBooksPriceService.calculateBooksPrice(bookApiRequestList).getDiscountedPrice());
 	}
 
 	@Test
@@ -78,7 +82,8 @@ public class CalculateBooksPriceServiceTest {
 		setShoppingCart(4, 1);
 		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(160d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
+		Assertions.assertEquals(160d,
+				calculateBooksPriceService.calculateBooksPrice(bookApiRequestList).getDiscountedPrice());
 	}
 
 	@Test
@@ -94,7 +99,8 @@ public class CalculateBooksPriceServiceTest {
 		setShoppingCart(5, 1);
 		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(187.5d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
+		Assertions.assertEquals(187.5d,
+				calculateBooksPriceService.calculateBooksPrice(bookApiRequestList).getDiscountedPrice());
 	}
 
 	@Test
@@ -167,6 +173,7 @@ public class CalculateBooksPriceServiceTest {
 		setShoppingCart(5, 4);
 		bookApiRequestList.add(bookApiRequest);
 
-		Assertions.assertEquals(465d, calculateBooksPriceService.calculateBooksPrice(bookApiRequestList));
+		Assertions.assertEquals(465d,
+				calculateBooksPriceService.calculateBooksPrice(bookApiRequestList).getDiscountedPrice());
 	}
 }

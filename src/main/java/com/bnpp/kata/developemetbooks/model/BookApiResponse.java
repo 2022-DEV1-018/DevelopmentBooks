@@ -1,0 +1,16 @@
+package com.bnpp.kata.developemetbooks.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class BookApiResponse {
+    private Double discountedPrice;
+    private Double bookPrice;
+    private Integer totalBooks;
+}

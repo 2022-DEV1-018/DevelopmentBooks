@@ -37,4 +37,12 @@ public enum BooksEnum {
 						ImmutableMap.of("id", book.id, "title", book.title, "author", book.author, "year", book.year)))
 				.collect(Collectors.toList());
 	}
+
+	public static BooksEnum getBookById(int id) throws Exception {
+		for (BooksEnum book : BooksEnum.values()) {
+			if (book.id == id)
+				return book;
+		}
+		throw new Exception("Book id not found: " + id);
+	}
 }

@@ -4,16 +4,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.bnpp.kata.developemetbooks.model.BookApiRequest;
+import com.bnpp.kata.developemetbooks.model.BookApiResponse;
 import com.bnpp.kata.developemetbooks.model.DiscountEnum;
 
+@Service
 public class CalculateBooksPriceService {
 
 	private static final int BOOK_PRICE = 50;
 	private static final double TOTAL_PERCENTAGE = 100.0;
 	private int maxDiscountSet;
 
-	public double calculateBooksPrice(List<BookApiRequest> bookApiRequestList) {
+	public BookApiResponse calculateBooksPrice(List<BookApiRequest> bookApiRequestList) {
+		double totalPriceSmallestSets = 0;
 		maxDiscountSet = bookApiRequestList.size();
 		Collections.sort(bookApiRequestList, Collections.reverseOrder());
 		List<Integer> inputBookIds = getBookIdList(bookApiRequestList);
@@ -22,11 +27,19 @@ public class CalculateBooksPriceService {
 
 		double totalPriceNormalSets = getBooksPrice(defaultCombinationSets);
 		if (maxDiscountSet > 3) {
-			double totalPriceSmallestSets = getBooksPrice(otherPossibleCombinationSets);
-			return Math.min(totalPriceNormalSets, totalPriceSmallestSets);
+			totalPriceSmallestSets = getBooksPrice(otherPossibleCombinationSets);
 		}
 
-		return totalPriceNormalSets;
+		return createPriceResponse(inputBookIds, totalPriceNormalSets,
+				totalPriceSmallestSets == 0 ? totalPriceNormalSets : totalPriceSmallestSets);
+	}
+
+	private BookApiResponse createPriceResponse(List<Integer> bookListFromInput, double totalPriceNormalSets,
+			double totalPriceSmallestSets) {
+		double basePrice = bookListFromInput.size() * 50;
+		double finalPrice = Math.min(totalPriceNormalSets, totalPriceSmallestSets);
+		return BookApiResponse.builder().totalBooks(bookListFromInput.size()).bookPrice(basePrice)
+				.discountedPrice(finalPrice).build();
 	}
 
 	protected List<Integer> getBookIdList(List<BookApiRequest> bookRequestList) {
