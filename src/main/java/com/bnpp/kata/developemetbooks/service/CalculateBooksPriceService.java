@@ -1,6 +1,7 @@
 package com.bnpp.kata.developemetbooks.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.bnpp.kata.developemetbooks.model.BookApiRequest;
@@ -10,11 +11,22 @@ public class CalculateBooksPriceService {
 
 	private static final int BOOK_PRICE = 50;
 	private static final double TOTAL_PERCENTAGE = 100.0;
+	private int maxDiscountSet;
 
 	public double calculateBooksPrice(List<BookApiRequest> bookApiRequestList) {
+		maxDiscountSet = bookApiRequestList.size();
+		Collections.sort(bookApiRequestList, Collections.reverseOrder());
 		List<Integer> inputBookIds = getBookIdList(bookApiRequestList);
 		List<List<Integer>> defaultCombinationSets = getDefaultBooksCombination(inputBookIds);
-		return getBooksPrice(defaultCombinationSets);
+		List<List<Integer>> otherPossibleCombinationSets = getBestCombinationSet(new ArrayList<>(inputBookIds));
+
+		double totalPriceNormalSets = getBooksPrice(defaultCombinationSets);
+		if (maxDiscountSet > 3) {
+			double totalPriceSmallestSets = getBooksPrice(otherPossibleCombinationSets);
+			return Math.min(totalPriceNormalSets, totalPriceSmallestSets);
+		}
+
+		return totalPriceNormalSets;
 	}
 
 	protected List<Integer> getBookIdList(List<BookApiRequest> bookRequestList) {
@@ -79,5 +91,31 @@ public class CalculateBooksPriceService {
 		double discountedPriceForSet = basePrice - ((basePrice * discountForSet) / TOTAL_PERCENTAGE);
 		calculatedPrice += discountedPriceForSet;
 		return calculatedPrice;
+	}
+
+	private List<List<Integer>> getBestCombinationSet(List<Integer> bookLists) {
+		List<Integer> bookList = bookLists;
+		List<List<Integer>> booksCombinationSet = new ArrayList<>();
+		List<Integer> childBookList;
+		for (int i = 0; i < maxDiscountSet; i++) {
+			if (!bookList.isEmpty()) {
+				childBookList = new ArrayList<>();
+				findBestBooksCombination(bookList, childBookList);
+				booksCombinationSet.add(childBookList);
+			}
+		}
+		return booksCombinationSet;
+	}
+
+	private void findBestBooksCombination(List<Integer> bookIdList, List<Integer> childBookList) {
+		int index = 0;
+		while (bookIdList.size() > index) {
+			if (!(childBookList.contains(bookIdList.get(index))) && childBookList.size() < maxDiscountSet - 1) {
+				childBookList.add(bookIdList.get(index));
+				bookIdList.remove(index);
+				index = index - 1;
+			}
+			index++;
+		}
 	}
 }
