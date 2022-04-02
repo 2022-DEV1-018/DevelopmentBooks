@@ -50,4 +50,32 @@ public class CalculateBooksPriceService {
 		}
 		return bookIdList;
 	}
+
+	protected List<List<Integer>> getDefaultBooksCombination(List<Integer> bookList) {
+		List<List<Integer>> bookListSets = new ArrayList<>();
+		List<Integer> initList = new ArrayList<>();
+		bookListSets.add(initList);
+
+		for (Integer bookId : bookList) {
+			boolean bookAddedToExistingSet = addBookToExistingSet(bookListSets, bookId);
+			if (!bookAddedToExistingSet) {
+				List<Integer> newSet = new ArrayList<>();
+				newSet.add(bookId);
+				bookListSets.add(newSet);
+			}
+		}
+		return bookListSets;
+	}
+
+	private boolean addBookToExistingSet(List<List<Integer>> bookListSets, Integer bookId) {
+		boolean bookAddedToExistingSet = false;
+		for (List<Integer> list : bookListSets) {
+			if (!list.contains(bookId)) {
+				list.add(bookId);
+				bookAddedToExistingSet = true;
+				break;
+			}
+		}
+		return bookAddedToExistingSet;
+	}
 }

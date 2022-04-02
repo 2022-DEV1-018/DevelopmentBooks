@@ -1,11 +1,13 @@
 package com.bnpp.kata.developemetbooks.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 
 import com.bnpp.kata.developemetbooks.model.BookApiRequest;
 
@@ -110,5 +112,23 @@ public class CalculateBooksPriceServiceTest {
 		bookApiRequestList.add(bookApiRequest);
 
 		Assertions.assertEquals(8, calculateBooksPriceService.getBookIdList(bookApiRequestList).size());
+	}
+
+	@Test
+	@DisplayName("GetDefaultBookCombination method should return the default possible book combination based on the input request")
+	public void shouldReturnThePossibleDefaultBookCombinationSets() {
+		bookApiRequestList = new ArrayList<>();
+		setShoppingCart(1, 2);
+		bookApiRequestList.add(bookApiRequest);
+		setShoppingCart(2, 2);
+		bookApiRequestList.add(bookApiRequest);
+
+		List<Integer> bookIdList = calculateBooksPriceService.getBookIdList(bookApiRequestList);
+		List<List<Integer>> defaultBooksCombinationsSets = calculateBooksPriceService
+				.getDefaultBooksCombination(bookIdList);
+
+		List<List<Integer>> booksCombinationSet = Arrays.asList(Arrays.asList(1, 2), Arrays.asList(1, 2));
+		Assertions.assertEquals(booksCombinationSet, defaultBooksCombinationsSets);
+		Assertions.assertEquals(2, defaultBooksCombinationsSets.size());
 	}
 }
