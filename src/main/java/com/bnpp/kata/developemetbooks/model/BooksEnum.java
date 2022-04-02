@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.bnpp.kata.developemetbooks.exception.BooksApiException;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.collect.ImmutableMap;
 
@@ -38,11 +39,11 @@ public enum BooksEnum {
 				.collect(Collectors.toList());
 	}
 
-	public static BooksEnum getBookById(int id) throws Exception {
+	public static BooksEnum getBookById(int id) throws BooksApiException {
 		for (BooksEnum book : BooksEnum.values()) {
 			if (book.id == id)
 				return book;
 		}
-		throw new Exception("Book id not found: " + id);
+		throw new BooksApiException("Book id not found: " + id);
 	}
 }
