@@ -131,4 +131,25 @@ public class CalculateBooksPriceServiceTest {
 		Assertions.assertEquals(booksCombinationSet, defaultBooksCombinationsSets);
 		Assertions.assertEquals(2, defaultBooksCombinationsSets.size());
 	}
+
+	@Test
+	public void calculateBookPriceForDefaultBookCombinationSets() {
+		bookApiRequestList = new ArrayList<>();
+		setShoppingCart(1, 2);
+		bookApiRequestList.add(bookApiRequest);
+		setShoppingCart(2, 2);
+		bookApiRequestList.add(bookApiRequest);
+		setShoppingCart(3, 2);
+		bookApiRequestList.add(bookApiRequest);
+		setShoppingCart(4, 1);
+		bookApiRequestList.add(bookApiRequest);
+		setShoppingCart(5, 1);
+		bookApiRequestList.add(bookApiRequest);
+
+		List<Integer> bookIdList = calculateBooksPriceService.getBookIdList(bookApiRequestList);
+		List<List<Integer>> defaultBooksCombinationsSets = calculateBooksPriceService
+				.getDefaultBooksCombination(bookIdList);
+
+		Assertions.assertEquals(322.5d, calculateBooksPriceService.getBooksPrice(defaultBooksCombinationsSets));
+	}
 }
