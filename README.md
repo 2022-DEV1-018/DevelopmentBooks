@@ -102,3 +102,15 @@ It produces the `DevelopmentBooks-1.0.0-SNAPSHOT.jar` file in the `/target` dire
 The application is now runnable using `java -jar target/DevelopmentBooks-1.0.0-SNAPSHOT.jar`.
 ```
 
+# How to access the code coverage report
+```
+Jacoco code coverage report can be accessed by the following steps.
+
+Download project as zip file and unzip the same to a folder. 
+Open a command prompt and goto the project(extracted) folder and execute below commands:
+mvn clean
+mvn install
+After completion of above steps, the report will be available in below path
+<PROJECT_ROOT_FOLDER>\target\site\jacoco\index.html
+```
+
