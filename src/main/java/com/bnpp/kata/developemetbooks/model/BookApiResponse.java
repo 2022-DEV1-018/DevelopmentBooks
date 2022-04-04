@@ -2,15 +2,17 @@ package com.bnpp.kata.developemetbooks.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class BookApiResponse {
-    private Double discountedPrice;
-    private Double bookPrice;
-    private Integer totalBooks;
+	private Double discountedPrice;
+	private Double bookPrice;
+	private Integer totalBooks;
 }

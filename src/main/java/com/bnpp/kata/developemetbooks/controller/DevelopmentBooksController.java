@@ -26,13 +26,13 @@ public class DevelopmentBooksController {
 	}
 
 	@GetMapping("/books/getBooks")
-	public ResponseEntity<?> getListOfBooks() {
+	public ResponseEntity<Object> getListOfBooks() {
 		return ResponseEntity.ok(bookCollectionService.getAllBooks());
 	}
 
 	@PostMapping(path = "/books/calculateBookPrice", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = {
 			MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<?> calculateBooksPrice(@RequestBody List<BookApiRequest> bookList) {
+	public ResponseEntity<Object> calculateBooksPrice(@RequestBody List<BookApiRequest> bookList) {
 		try {
 			bookCollectionService.validateBooksCollection(bookList);
 		} catch (BooksApiException booksApiException) {

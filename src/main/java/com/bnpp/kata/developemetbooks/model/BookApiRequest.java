@@ -1,12 +1,14 @@
 package com.bnpp.kata.developemetbooks.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class BookApiRequest implements Comparable<BookApiRequest> {
 	private Integer bookId;
 	private Integer quantity;

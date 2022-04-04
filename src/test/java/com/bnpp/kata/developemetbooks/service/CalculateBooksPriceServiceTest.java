@@ -4,13 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import com.bnpp.kata.developemetbooks.model.BookApiRequest;
-
+@SpringBootTest
 public class CalculateBooksPriceServiceTest {
 
 	private BookApiRequest bookApiRequest;
@@ -23,7 +26,7 @@ public class CalculateBooksPriceServiceTest {
 		bookApiRequest.setQuantity(quantity);
 	}
 
-	@Before
+	@BeforeEach
 	public void init() {
 		calculateBooksPriceService = new CalculateBooksPriceService();
 		bookApiRequestList = new ArrayList<>();
